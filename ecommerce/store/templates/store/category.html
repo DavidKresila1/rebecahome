@@ -1,0 +1,47 @@
+{% extends 'store/base.html' %}
+
+    {% block content %}
+
+    <div class="col-md-6 mb-4" style="margin-top: 10rem !important;">
+        <h1><strong>All Products </strong></h1>
+        {% for category in categories %}
+        <li class="list-group-item">
+        <a href="{% url 'allproduct' %}?category={{category.name}}"><h1>{{category.name}}</h1></a>
+        </li>
+        <div
+        class="row fadeIn">
+        
+        {% for object in category.item_set.all %}
+        
+        <div class="col-md-6 mb-4" style="max-width: 90%;">
+        <div class="card" style="padding: 20px; width: 450px; height: 450px;">
+        {{object.name}}
+        <div class="container" >
+        <img src="{{object.image.url}}" class="card-img-top" style="width: 300px; height: 300px;"
+        alt="">
+        <a>
+        <div class="mask rga-white-slight"></div>
+        </a>
+        </div>
+        <div class="card-body text-center">
+        <p class="lead">
+        {% if object.discount_price %}
+        <span class="mr-1">
+        <del>${{ object.price }}</del>
+        </span>
+        <span>${{ object.discount_price }}</span>
+        {% else %}
+        <span>${{ object.price }}</span>
+        {% endif %}
+        </p>
+        
+        </h4>
+        </div>
+        </div>
+        </div>
+        {% endfor %}
+        </div>
+        {% endfor %}
+        </div>
+
+    {% endblock %}
